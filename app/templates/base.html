@@ -1,0 +1,77 @@
+<html>
+    <head>
+            {% if title %}
+            <title>{{ title }} - EPL PREDICTOR</title>
+            {% else %}
+            <title>EPL PREDICTOR</title>
+            {% endif %}
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="description" content="">
+            <meta name="author" content="">
+            <link rel="icon" href="favicon.ico">
+            <!-- Bootstrap core CSS -->
+            <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+            <!-- Custom styles for this template -->
+            <link rel="stylesheet" href="{{ url_for('static', filename='canvas.css') }}">
+    </head>
+    <body>
+
+              <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+                    <a class="navbar-brand" href="{{url_for('index')}}">EPL Match Predictor</a>
+
+                    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+                      <ul class="navbar-nav mr-auto">
+                        {% if not current_user.is_anonymous%}
+
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{url_for('inbox')}}">My Predictions</a>
+                        </li>
+
+                        {% endif %}
+
+
+                        {% if current_user.is_admin %}
+
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{url_for('all_predictions')}}">All Predictions</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{url_for('add_user')}}">Add User</a>
+                            </li>
+
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{url_for('add_team')}}">Add Team</a>
+                            </li>
+
+                          {% endif %}
+
+                        <li class="nav-item">
+                          {% if current_user.is_anonymous %}
+                          <a class="nav-link" href="{{url_for('login')}}">Login</a>
+                          {% else %}
+                          <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                          {% endif %}
+                        </li>
+
+                      </ul>
+
+                        {% if not current_user.is_anonymous %}
+
+                        <a href="{{url_for('predict')}}" class="btn btn-outline-info my-2 my-sm-0 btn-primary" role="button" aria-pressed="true">New Prediction</a>
+
+                        {% endif %}
+
+
+                    </div>
+                  </nav>
+
+
+      <div class="container">
+        {% block content %}
+
+
+        {% endblock %}
+      </div>
+    </body>
+</html>

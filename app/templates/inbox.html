@@ -1,0 +1,72 @@
+{% extends "./base.html" %}
+{% block content %}
+
+{% for p in predictions %}
+
+<main role="main" class="container">
+<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
+    <img class="mr-3" src="{{ url_for('static', filename='img/favicon.ico') }}" alt="" width="48" height="48">
+    <div class="lh-100">
+      <h6 class="mb-0 text-white lh-100">Welcome @{{current_user.username|capitalize}}</h6><br>
+      <small>2022 | EPL Match Predictor</small>
+    </div>
+  </div>
+
+  <div class="my-3 p-3 bg-white rounded box-shadow">
+
+    <h6 class="border-bottom border-gray pb-2 mb-0">My Predictions</h6>
+
+
+
+
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Prediction ID</th>
+                      <th scope="col">Home Team</th>
+                      <th scope="col">Away Team</th>
+                      <th scope="col">Winner</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Predictor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                {% for p in predictions%}
+                    <tr>
+                      <th scope="row">{{p.id}}</th>
+                      <td>{{ p.home_team }}</td>
+                      <td>{{ (p.away_team) }}</td>
+                      <td>{{ (p.winner) }}</td>
+                      <td>{{ (p.prediction_date) }}</td>
+                      <td>{{ (p.username) }}</td>
+                    </tr>
+
+                {% endfor %}
+
+
+                  </tbody>
+                </table>
+
+
+
+
+
+
+    <small class="d-block text-right mt-3">
+      <!-- <a href="#">All Messages</a> -->
+      {% if prev_url %}
+              <a href="{{ prev_url }}">Newer Predictions</a>
+      {% endif %}
+
+      {% if next_url %}
+            <a href="{{ next_url }}">Older Predictions </a>
+      {% endif %}
+    </small>
+  </div>
+</main>
+
+
+
+{% endfor %}
+{% endblock %}
